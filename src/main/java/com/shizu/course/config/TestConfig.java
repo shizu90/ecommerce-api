@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.shizu.course.entities.CategoryEntity;
 import com.shizu.course.entities.OrderEntity;
+import com.shizu.course.entities.ProductEntity;
 import com.shizu.course.entities.UserEntity;
 import com.shizu.course.entities.enums.OrderStatus;
 import com.shizu.course.repositories.CategoryRepository;
 import com.shizu.course.repositories.OrderRepository;
+import com.shizu.course.repositories.ProductRepository;
 import com.shizu.course.repositories.UserRepository;
 
 @Configuration
@@ -29,6 +31,9 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private CategoryRepository categoryRepo;
 	
+	@Autowired
+	private ProductRepository productRepo;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		UserEntity u1 = new UserEntity(null, "Maria Brown", "maria@gmail.com", "9888888", "123456");
@@ -38,6 +43,11 @@ public class TestConfig implements CommandLineRunner{
 		CategoryEntity c2 = new CategoryEntity(null, "Computers");		
 		
 		categoryRepo.saveAll(Arrays.asList(c1, c2));
+		
+		ProductEntity p1 = new ProductEntity(null, "PC GAMER", "aKOKFODOKFODASF", 4300.50, "");
+		ProductEntity p2 = new ProductEntity(null, "CELULAR", "aKOKFODOKFODASF", 2300.50, "");
+		
+		productRepo.saveAll(Arrays.asList(p1, p2));
 		
 		OrderEntity o1 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.CANCELED);
 		OrderEntity o2 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u2, OrderStatus.PAID);
