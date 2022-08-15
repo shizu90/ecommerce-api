@@ -87,6 +87,14 @@ public class OrderEntity implements Serializable{
 		return this.items;
 	}
  	
+	public Double getTotal() {
+		double sum = 0.0;
+		for(OrderItemEntity x : this.items) {
+			sum = sum + x.getSubTotal();
+		}
+		return sum;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

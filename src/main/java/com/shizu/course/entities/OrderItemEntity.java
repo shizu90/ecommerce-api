@@ -40,6 +40,11 @@ public class OrderItemEntity implements Serializable{
 	
 	public Double getPrice() {return this.price;}
 	public void setPrice(Double price) {this.price = price;}
+	
+	public Double getSubTotal() {
+		return this.price * this.quantity;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
