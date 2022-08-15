@@ -54,6 +54,8 @@ public class TestConfig implements CommandLineRunner{
 		OrderEntity o3 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.WAITING_PAYMENT);
 		userRepo.saveAll(Arrays.asList(u1, u2));
 		orderRepo.saveAll(Arrays.asList(o1, o2, o3));
+		
+		p1.getCategories().add(c2);
 	}
 	
 }
