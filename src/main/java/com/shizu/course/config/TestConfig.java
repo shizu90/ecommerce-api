@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.shizu.course.entities.CategoryEntity;
 import com.shizu.course.entities.OrderEntity;
 import com.shizu.course.entities.UserEntity;
 import com.shizu.course.entities.enums.OrderStatus;
+import com.shizu.course.repositories.CategoryRepository;
 import com.shizu.course.repositories.OrderRepository;
 import com.shizu.course.repositories.UserRepository;
 
@@ -24,10 +26,18 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private OrderRepository orderRepo;
 	
+	@Autowired
+	private CategoryRepository categoryRepo;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		UserEntity u1 = new UserEntity(null, "Maria Brown", "maria@gmail.com", "9888888", "123456");
 		UserEntity u2 = new UserEntity(null, "Alex Gray", "alex@gmail.com", "966666", "1234567");
+		
+		CategoryEntity c1 = new CategoryEntity(null, "Electronics");
+		CategoryEntity c2 = new CategoryEntity(null, "Computers");		
+		
+		categoryRepo.saveAll(Arrays.asList(c1, c2));
 		
 		OrderEntity o1 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.CANCELED);
 		OrderEntity o2 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u2, OrderStatus.PAID);
