@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shizu.course.entities.enums.OrderStatus;
+
 @Entity
 public class OrderEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -18,17 +22,23 @@ public class OrderEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private UserEntity client;
 	
+	private Integer orderStatus;
+	
 	public OrderEntity() {}
-	public OrderEntity(Long id, Instant moment, UserEntity client) {
+	public OrderEntity(Long id, Instant moment, UserEntity client, OrderStatus orderStatus) {
 		this.id = id;
 		this.moment = moment;
 		this.client = client;
+		setOrderStatus(orderStatus);
 	}
 	public Long getId() {
 		return id;
@@ -48,6 +58,15 @@ public class OrderEntity implements Serializable{
 	public void setClient(UserEntity client) {
 		this.client = client;
 	}
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(this.orderStatus);
+	}
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

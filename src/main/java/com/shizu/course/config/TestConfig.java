@@ -1,5 +1,6 @@
 package com.shizu.course.config;
 
+import java.time.Instant;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.shizu.course.entities.OrderEntity;
 import com.shizu.course.entities.UserEntity;
+import com.shizu.course.entities.enums.OrderStatus;
+import com.shizu.course.repositories.OrderRepository;
 import com.shizu.course.repositories.UserRepository;
 
 @Configuration
@@ -17,12 +21,19 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private UserRepository userRepo;
 
+	@Autowired
+	private OrderRepository orderRepo;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		UserEntity u1 = new UserEntity(null, "Maria Brown", "maria@gmail.com", "9888888", "123456");
 		UserEntity u2 = new UserEntity(null, "Alex Gray", "alex@gmail.com", "966666", "1234567");
 		
+		OrderEntity o1 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.CANCELED);
+		OrderEntity o2 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u2, OrderStatus.PAID);
+		OrderEntity o3 = new OrderEntity(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.WAITING_PAYMENT);
 		userRepo.saveAll(Arrays.asList(u1, u2));
+		orderRepo.saveAll(Arrays.asList(o1, o2, o3));
 	}
 	
 }
