@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.shizu.course.entities.CategoryEntity;
 import com.shizu.course.entities.OrderEntity;
 import com.shizu.course.entities.OrderItemEntity;
+import com.shizu.course.entities.PaymentEntity;
 import com.shizu.course.entities.ProductEntity;
 import com.shizu.course.entities.UserEntity;
 import com.shizu.course.entities.enums.OrderStatus;
@@ -63,6 +64,9 @@ public class TestConfig implements CommandLineRunner{
 		OrderItemEntity oi2 = new OrderItemEntity(o2, p2, 3, p2.getPrice());
 		productRepo.saveAll(Arrays.asList(p1, p2));
 		orderItemRepo.saveAll(Arrays.asList(oi1, oi2));
+		PaymentEntity pay1 = new PaymentEntity(null, Instant.parse("2019-06-20T20:52:07Z"), o1);
+		o1.setPayment(pay1);
+		orderRepo.save(o1);
 	}
 	
 }

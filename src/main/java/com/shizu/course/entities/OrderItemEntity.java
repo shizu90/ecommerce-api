@@ -31,6 +31,7 @@ public class OrderItemEntity implements Serializable{
 	public OrderEntity getOrder() {return this.id.getOrder();}
 	public void setOrder(OrderEntity order) {this.id.setOrder(order);}
 	
+
 	public ProductEntity getProduct() {return this.id.getProduct();}
 	public void setProduct(ProductEntity product) {this.id.setProduct(product);}
 	
