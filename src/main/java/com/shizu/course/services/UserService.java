@@ -24,4 +24,8 @@ public class UserService {
 		Optional<UserEntity> obj = userRepo.findById(id);
 		return obj.get();
 	}
+	
+	public UserEntity insert(UserEntity obj) {
+		return userRepo.save(obj);
+	}
 }
